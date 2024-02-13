@@ -15,5 +15,8 @@
         public function danger() {
             redirect('/main');
         }
+        public function test() {
+            echo "Hurray!";
+        }
     }
 ?>

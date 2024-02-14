@@ -1,0 +1,67 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+main {
+	max-width: 50rem;
+	margin: 0 auto;
+	header {
+		width: 100%;
+		margin: 3rem 0 5rem;
+		form {
+			display: inline-block;
+			text-align: right;
+			width: 48%;
+			input[type="submit"] {
+				padding: 0.6em 0.9em;
+				cursor: pointer;
+				background-color: #cf2a27;
+				color: #fff;
+			}
+		}
+		h2 {
+			display: inline-block;
+			text-align: left;
+			width: 48%;
+		}
+	}
+	section {
+		width: 100%;
+		margin: 6rem 0;
+		form {
+			display: inline-block;
+			width: 10rem;
+			height: 10rem;
+			border: 1px solid #000;
+			margin-right: 2.3rem;
+			text-align: center;
+			h3 {
+				margin-top: 1.3rem;
+			}
+			input {
+				margin: 1.3rem 0;
+			}
+			input[type="submit"] {
+				padding: 0.5em 0.8em;
+				cursor: pointer;
+				background-color: #019e10;
+				color: #fff;
+			}
+		}
+	}
+	.host_game {
+		width: 97%;
+		border: 1px solid #000;
+		height: 8.5rem;
+		margin-top: 0.1rem;
+		padding: 0.1em 0.8em;
+		overflow-y: auto;
+		.win_color {
+			color: green;
+		}
+		.lose_color {
+			color: red;
+		}
+	}
+}

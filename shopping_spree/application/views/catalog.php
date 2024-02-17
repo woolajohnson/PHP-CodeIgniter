@@ -3,7 +3,7 @@
                 <div class="container">
                     <a class="navbar-brand text-primary" href="<?= base_url('products/') ?>">My Store</a>
                     
-                    <form class="d-flex" action="<?= base_url('products/cart') ?>" method="post">
+                    <form class="d-flex" action="<?= base_url('products/load_cart') ?>" method="post">
                         <button class="btn btn-outline-primary" type="submit">
                             Cart(
 <?php                   if(!empty($result)) {

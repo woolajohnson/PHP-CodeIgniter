@@ -1,0 +1,11 @@
+.card-img-top {
+	height: 10rem;
+	object-fit: cover;
+	object-position: 50% 0%;
+}
+.card_image {
+	height: 18rem;
+}
+.search_card {
+	height: 38rem;
+}

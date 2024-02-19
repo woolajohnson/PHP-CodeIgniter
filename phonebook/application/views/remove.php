@@ -5,8 +5,8 @@
                 <h4 class="mb-5">Name: <span class="text-primary"><?= $result['name'] ?></span></h4>
                 <h4 class="mb-5">Contact Number: <span class="text-primary"><?= $result['contact'] ?></span></h4>
                 <form action="/contacts/delete/<?= $result['id']?>" method="post">
-                    <button name="submit" value="no" class="btn btn-secondary mx-4">No</button>
-                    <button name="submit" value="yes" class="btn btn-danger">Yes, I want to delete</button>
+                    <button name="submit" value="no" class="btn btn-secondary mx-4">Yes</button>
+                    <button name="submit" value="yes" class="btn btn-danger">No</button>
                 </form>
             </div>
         </div>

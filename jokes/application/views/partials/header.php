@@ -12,5 +12,16 @@
             crossorigin="anonymous"
         />
         <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('input[name="filter"]').change(function() {
+                    var filter_type = $(this).val();
+                    $.post('<?= base_url('jokes/filter_jokes') ?>', { filter: filter_type }, function(data) {
+                        $('#jokesContainer').html(data);
+                    });
+                });
+            });
+        </script>
     </head>
     <body>

@@ -12,17 +12,17 @@
         }
         /* This method will filter the records based from the user choices.
             If recent is selected, the controller will call the filter_new method in the model,
-            else it will call the filter_old method */
+            elseif it will call the filter_old method if old is selected, else it will go back to homepage */
         public function filter_jokes() {
-            if($this->input->post('submit') && $this->input->post('filter') == 'old') {
-                $this->load->model('Joke');
+            $this->load->model('Joke');
+            if ($this->input->post('filter') == 'old') {
                 $data['result'] = $this->Joke->filter_old();
-                $this->load->view('jokes', $data);
-            } elseif($this->input->post('submit') && $this->input->post('filter') == 'recent') {
-                $this->load->model('Joke');
+            } elseif ($this->input->post('filter') == 'recent') {
                 $data['result'] = $this->Joke->filter_new();
-                $this->load->view('jokes', $data);
+            } else {
+                redirect('/');
             }
+            $this->load->view('jokes_list', $data);
         }
         public function new() {
             $this->load->view('new');

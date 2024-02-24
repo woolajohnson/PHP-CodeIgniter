@@ -34,6 +34,12 @@
             }
             return false;
         }
+        public function get_profile($id) {
+            $query = "SELECT * FROM products WHERE id = ?";
+            $value = array($id);
+            $result = $this->db->query($query, $value)->row_array();
+            return $result;
+        }
         public function validate_registration() {
             $this->load->library("form_validation");
             $this->form_validation->set_rules("firstname", "First name", "trim|required");

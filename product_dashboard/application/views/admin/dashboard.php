@@ -19,17 +19,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                            <td scope="col" class="col-1">1</td>
-                            <td scope="col" class="col-4">V88 Cap</td>
-                            <td scope="col" class="col-2">100</td>
-                            <td scope="col" class="col-2">21</td>
+                        <?php
+                    foreach($result as $row) {
+
+?>
+                        <tr>
+                            <td scope="col" class="col-1"><?= $row['id'] ?></td>
+                            <td scope="col" class="col-4"><a class="text-info" href="<?= base_url('products/show/' . $row['id'])?>"><?= $row['name'] ?></a></td>
+                            <td scope="col" class="col-2"><?= $row['inventory_count'] ?></td>
+                            <td scope="col" class="col-2"><?= $row['quantity_sold'] ?></td>
                             <td scope="col" class="col-3">
-                                <?= form_open('/products/delete') ?>
+                                <?= form_open('/products/action/' . $row['id']) ?>
                                     <button class="btn btn-outline-info" type="submit" name="submit" value="edit">Edit</button>
                                     <button class="btn btn-outline-danger" type="submit" name="submit" value="remove">Remove</button>
                                 <?= form_close() ?>
                             </td>
                         </tr>
+                        <?php 
+                    }   
+                        ?>
                     </tbody>
                 </table>
             </div>

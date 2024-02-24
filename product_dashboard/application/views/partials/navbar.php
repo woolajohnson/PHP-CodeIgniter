@@ -10,7 +10,7 @@
                 <a class="nav-link" aria-current="page" href="<?= base_url('products') ?>">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="#">Profile</a>
+                <a class="nav-link" href="<?= base_url('users/profile/' . $this->session->userdata('user_id')) ?>">Profile</a>
                 </li>
             </ul>
             <?= form_open(base_url('users/logout'), array('class' => 'ms-auto')) ?>

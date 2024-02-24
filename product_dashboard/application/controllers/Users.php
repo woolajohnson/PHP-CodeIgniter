@@ -38,7 +38,7 @@ class Users extends CI_Controller {
 					$this->session->set_userdata('firstname', $data['result']['firstname']);
 					$this->session->set_userdata('lastname', $data['result']['lastname']);
 					$this->session->set_userdata('contact', $data['result']['contact']);
-					$this->session->set_userdata('last_failed', $data['result']['last_failed']);
+					$this->session->set_userdata('created_at', $data['result']['created_at']);
 					redirect('/products');
 				} else {
 					$this->session->set_flashdata('errors', "Invalid credentials");
@@ -82,6 +82,14 @@ class Users extends CI_Controller {
 		} else {
 			redirect('/');
 		}
+	}
+	public function profile() {
+		$this->load->view('profile');
+	}
+	public function edit_profile($id) {
+		$this->load->model('User');
+		$data['result'] = $this->User->get_profile($id);
+		$this->load->view('edit_profile', $data);
 	}
 	public function logout() {
 		if ($this->input->post('logout')) {

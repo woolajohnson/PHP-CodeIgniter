@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Users extends CI_Controller {
 	public function index() {
 		if ($this->session->userdata('user_id')) {
-			redirect('/users/dashboard');
+			$this->load->view('admin/dashboard');
 		} else {
 			$this->load->view('login');
 		}
@@ -18,22 +18,19 @@ class Users extends CI_Controller {
 	}
 	public function dashboard() {
 		if ($this->session->userdata('user_id')) {
-			$this->load->view('dashboard');
+			$this->load->view('admin/dashboard');
 		} else {
 			redirect('/');
 		}
 	}
 	public function login() {
 		if($this->input->post('submit') == 'login') {
-			$this->load->library("form_validation");
-			$this->form_validation->set_rules("username", "Contact number or Email", "trim|required");
-			$this->form_validation->set_rules("password", "Password", "trim|required");
-			if($this->form_validation->run() === FALSE) {
-				$this->session->set_flashdata('errors', validation_errors());
-				redirect('/');
-			} else {
-				$username = $this->input->post('username');
-				$password = $this->input->post('password');
+			$this->load->model('User');
+			$result = $this->User->validate_login();
+
+			if($result == 'valid') {
+				$username = $this->security->xss_clean($this->input->post('username'));
+				$password = $this->security->xss_clean($this->input->post('password'));
 				$this->load->model('User');
 				$data['result'] = $this->User->get_by_id($username, $password);
 				if(!empty($data['result'])) {
@@ -42,37 +39,32 @@ class Users extends CI_Controller {
 					$this->session->set_userdata('lastname', $data['result']['lastname']);
 					$this->session->set_userdata('contact', $data['result']['contact']);
 					$this->session->set_userdata('last_failed', $data['result']['last_failed']);
-					redirect('/users/dashboard');
+					redirect('/products');
 				} else {
 					$this->session->set_flashdata('errors', "Invalid credentials");
 					redirect('/');
 				}
+			} else {
+				$this->session->set_flashdata('errors', validation_errors());
+				redirect('/');
 			}
 		}
 	}
 	public function create() {
 		if($this->input->post('submit') == 'register') {
-			$this->load->library("form_validation");
-			$this->form_validation->set_rules("firstname", "First name", "trim|required");
-			$this->form_validation->set_rules("lastname", "Last name", "trim|required");
-			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
-			$this->form_validation->set_rules("contact", "Contact Number", "trim|required|numeric");
-			$this->form_validation->set_rules("password", "Password", "trim|required|min_length[8]");
-			$this->form_validation->set_rules("confirm_password", "Confirm password", "trim|required|matches[password]");
+			$this->load->model('User');
+			$result = $this->User->validate_registration();
 			
-			if($this->form_validation->run() === FALSE) {
-				$this->session->set_flashdata('errors', validation_errors());
-				redirect('/users/register');
-			} else {
-				$firstname = $this->input->post('firstname');
-				$lastname = $this->input->post('lastname');
-				$email = $this->input->post('email');
-				$contact = $this->input->post('contact');
-				$firstname = $this->input->post('firstname');
-				$password = $this->input->post('password');
+			if($result == 'valid') {
+				$firstname = $this->security->xss_clean($this->input->post('firstname'));
+				$lastname = $this->security->xss_clean($this->input->post('lastname'));
+				$email = $this->security->xss_clean($this->input->post('email'));
+				$contact = $this->security->xss_clean($this->input->post('contact'));
+				$firstname = $this->security->xss_clean($this->input->post('firstname'));
+				$password = $this->security->xss_clean($this->input->post('password'));
 				$salt = bin2hex(openssl_random_pseudo_bytes(22));
         		$encrypted_password = md5($password . '' . $salt);
-				$confirm_password = $this->input->post('confirm_password');
+				$confirm_password = $this->security->xss_clean($this->input->post('confirm_password'));
 				$this->load->model('User');
 				$data['result'] = $this->User->insert_data($firstname, $lastname, $email, $contact, $encrypted_password, $salt);
 
@@ -80,8 +72,12 @@ class Users extends CI_Controller {
 					$this->session->set_flashdata('success', '"Congratulations! You have successfully registered.');
 					redirect('/users/register');
 				} else {
-					echo "Already taken.";
+					$this->session->set_flashdata('errors', 'Contact number or Email is already taken.');
+					redirect('/users/register');
 				}
+			} else {
+				$this->session->set_flashdata('errors', validation_errors());
+				redirect('/users/register');
 			}
 		} else {
 			redirect('/');

@@ -14,7 +14,7 @@
 ?>
             <div class="col-lg-4 mx-auto card shadow my-5 py-3 px-5">
                 <h2 class="text-primary text-center pt-3 mb-1">Registration form</h2>
-                <form action="/users/create/" method="post">
+                <?= form_open(base_url('users/create')) ?>
                     <div class="col-lg-12">
                         <label for="firstname" class="form-label"></label>
                         <input type="text" class="form-control form-control-lg" placeholder="First name" id="name" name="firstname" />
@@ -43,7 +43,7 @@
                         <button name="submit" value="register" class="btn btn-primary form-control form-control-lg">Submit</button>
                     </div>
                     <p class="text-center my-4">Already have an account? <a href="/users">Login</a></p>
-                </form>
+                <?= form_close() ?>
             </div>
         </div>
 <?php $this->load->view('partials/footer'); ?>

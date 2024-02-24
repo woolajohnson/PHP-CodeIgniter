@@ -9,7 +9,7 @@
 ?>
             <div class="col-lg-4 mx-auto card shadow my-5 p-5">
                 <h2 class="text-primary text-center mb-1">Login</h2>
-                <form action="/users/login" method="post">
+                <?= form_open(base_url('users/login')) ?>
                     <div class="col-lg-12">
                         <label for="username" class="form-label"></label>
                         <input type="text" class="form-control form-control-lg" placeholder="Contact Number/Email" id="name" name="username" />
@@ -22,7 +22,7 @@
                         <button name="submit" value="login" class="btn btn-primary form-control form-control-lg">Submit</button>
                     </div>
                     <p class="text-center my-4">Don't have an account? <a href="/users/register">Register here</a></p>
-                </form>
+                <?= form_close() ?>
             </div>
         </div>
 <?php $this->load->view('partials/footer'); ?>
